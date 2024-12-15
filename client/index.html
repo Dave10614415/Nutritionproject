@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition Label Analyzer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Nutrition Label Analyzer</h1>
+            <p>Analyze nutrition labels to compare daily values and receive health alerts.</p>
+        </header>
+
+        <section class="form-section">
+            <form id="nutrition-form">
+                <div class="form-group">
+                    <label for="image">Upload or Capture Nutrition Label Image:</label>
+                    <div id="image-options">
+                        <button type="button" id="camera-button" class="btn-camera">Capture with Camera</button>
+                        <input type="file" id="image-input" name="image" accept="image/*" style="display: none;">
+                        <label for="image-input" class="btn-upload">Upload from Gallery</label>
+                    </div>
+                    <img id="preview" src="" alt="Captured Image" class="preview" style="display: none;">
+                </div>
+
+                <div class="form-group">
+                    <label for="gender">Select Gender:</label>
+                    <select id="gender" name="gender" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-submit">Analyze</button>
+            </form>
+        </section>
+
+        <section class="results-section" id="results">
+            <h2>Results</h2>
+            <div id="results-content"></div>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 Nutrition Analyzer. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
