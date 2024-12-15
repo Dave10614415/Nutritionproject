@@ -180,4 +180,4 @@ def compare_with_rdv(nutrition_data, rdv_values):
     return rdv_analysis, alerts
 
 if __name__ == '__main__':
-    app.run(debug=True)  # Run the app in debug mode
+    app.run(debug=False)  # Run the app in debug mode
