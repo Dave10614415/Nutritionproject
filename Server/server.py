@@ -6,9 +6,9 @@ import io
 import re
 
 app = Flask(__name__)
-CORS(app)  # Enable Cross-Origin Resource Sharing for API access
+CORS(app)  
 
-# Initialize EasyOCR reader (you can specify supported languages here)
+
 OCR_READER = easyocr.Reader(["en"], gpu=False)
 
 # RDV values for males and females (2,000-calorie diet)
@@ -46,7 +46,7 @@ def analyze_nutrition_label():
         gender = request.form.get('gender', 'male').lower()  # Default to male
         user_preferences = request.form.get('preferences', '{}')
 
-        # Open the image
+       
         image = Image.open(io.BytesIO(image_file.read()))
 
         # Preprocess the image for better OCR accuracy
@@ -56,7 +56,7 @@ def analyze_nutrition_label():
         extracted_text = perform_ocr(image)
         print("Extracted Text:", extracted_text)
 
-        # Parse extracted text into nutritional values
+      
         nutrition_data = parse_nutrition_data(extracted_text)
 
         # Select appropriate RDV based on gender
@@ -87,10 +87,7 @@ def preprocess_image(image):
     # Enhance contrast using autocontrast
     enhanced_image = ImageOps.autocontrast(gray_image)
 
-    # Optionally save for debugging
-    # enhanced_image.save("processed_image.png")
-
-    return enhanced_image
+       return enhanced_image
 
 def perform_ocr(image):
     """
@@ -101,20 +98,19 @@ def perform_ocr(image):
     image.save(image_bytes, format="PNG")
     image_bytes = image_bytes.getvalue()
 
-    # Perform OCR
     results = OCR_READER.readtext(image_bytes, detail=0)
 
-    # Join the results into a single text block
+  
     return " ".join(results)
 
 def clean_ocr_text(text):
     """
     Clean and normalize OCR text for consistent parsing.
     """
-    # Convert to lowercase for consistent parsing
+   
     text = text.lower()
 
-    # Remove extra spaces and newlines
+  
     text = re.sub(r"\s+", " ", text)
 
     # Normalize common OCR misinterpretations
@@ -128,10 +124,10 @@ def parse_nutrition_data(text):
     """
     nutrition_data = {}
 
-    # Normalize text before parsing
+   
     text = clean_ocr_text(text)
 
-    # Example regex patterns for common nutrients
+   
     patterns = {
         "total_fat": r"total\s*fat[:\s]*(\d+\.?\d*)\s*g",
         "saturated_fat": r"saturated\s*fat[:\s]*(\d+\.?\d*)\s*g",
@@ -157,7 +153,7 @@ def compare_with_rdv(nutrition_data, rdv_values):
     Adds alerts for high levels of specific nutrients.
     """
     rdv_analysis = {}
-    alerts = []  # Collect alerts for high levels of specific nutrients
+    alerts = []  
 
     for nutrient, value in nutrition_data.items():
         if nutrient in rdv_values:
